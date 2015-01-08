@@ -25,12 +25,12 @@ class TableRow:
 def processSpreadSheet(SFSession, filename, clearData=True):
     workbook = xlrd.open_workbook(filename)
 
-    spreadSheet = workbook.sheet_by_name('Reset')
+    spreadSheet = workbook.sheet_by_name('Reload')
 
     nRows = spreadSheet.nrows
     nCols = spreadSheet.ncols
 
-    if(clearData and 'Reset' in workbook.sheet_names()):
+    if(clearData and 'Reload' in workbook.sheet_names()):
         for row in range(0, nRows):
             rowData = spreadSheet.cell_value(row,0)
             if rowData:
@@ -38,7 +38,7 @@ def processSpreadSheet(SFSession, filename, clearData=True):
                 SFSession.runCommands(rowData)
 
     for spreadSheet in workbook.sheet_names():
-        if spreadSheet == 'Reset':
+        if spreadSheet == 'Reload':
             continue
         print("Loading: " + spreadSheet)
         table = createTable(spreadSheet, workbook.sheet_by_name(spreadSheet))
